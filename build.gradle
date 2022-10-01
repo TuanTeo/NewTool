@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'java-library-distribution'
+
+mainClassName = 'NewTool'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0.0'
+
+
+//repositories {
+//    mavenCentral()
+//}
+
+// gradle assemble
+dependencies {
+}
+
+// Task "distZip" added by plugin "java-library-distribution":
+distZip.shouldRunAfter(build)
+jar {
+    manifest {
+        attributes 'Main-Class': 'NewTool'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
